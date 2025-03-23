@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Speed Converter</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+  <div id="header"></div>
+  <div class="container mt-4">
+    <h2 class="mb-3">Speed Converter</h2>
+    <input type="number" id="speedInput" class="form-control mb-3" placeholder="Enter speed" />
+    <select id="speedUnitSelect" class="form-control mb-3">
+      <option value="km/h">Kilometers per Hour (km/h)</option>
+      <option value="m/s">Meters per Second (m/s)</option>
+      <option value="mph">Miles per Hour (mph)</option>
+    </select>
+    <button id="convertSpeedBtn" class="btn btn-primary">Convert</button>
+    <div id="speedResult" class="mt-3"></div>
+  </div>
+  <div id="footer" class="mt-4"></div>
+  <script src="main.js"></script>
+  <script>
+    const convertSpeedBtn = document.getElementById("convertSpeedBtn");
+    const speedInput = document.getElementById("speedInput");
+    const speedUnitSelect = document.getElementById("speedUnitSelect");
+    const speedResult = document.getElementById("speedResult");
+
+    convertSpeedBtn.addEventListener("click", () => {
+      const speed = parseFloat(speedInput.value);
+      const unit = speedUnitSelect.value;
+      let result = '';
+      if (unit === "km/h") {
+        result = `${speed} km/h = ${(speed / 3.6).toFixed(2)} m/s = ${(speed / 1.60934).toFixed(2)} mph`;
+      } else if (unit === "m/s") {
+        result = `${speed} m/s = ${(speed * 3.6).toFixed(2)} km/h = ${(speed * 2.23694).toFixed(2)} mph`;
+      } else {
+        result = `${speed} mph = ${(speed * 1.60934).toFixed(2)} km/h = ${(speed / 2.23694).toFixed(2)} m/s`;
+      }
+      speedResult.innerHTML = result;
+    });
+  </script>
+</body>
+</html>

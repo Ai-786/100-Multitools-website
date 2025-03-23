@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Energy Converter</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+  <div id="header"></div>
+  <div class="container mt-4">
+    <h2 class="mb-3">Energy Converter</h2>
+    <input type="number" id="energyInput" class="form-control mb-3" placeholder="Enter energy value" />
+    <select id="energyUnitSelect" class="form-control mb-3">
+      <option value="joules">Joules (J)</option>
+      <option value="calories">Calories (cal)</option>
+      <option value="kilocalories">Kilocalories (kcal)</option>
+      <option value="watts">Watts (W)</option>
+    </select>
+    <button id="convertEnergyBtn" class="btn btn-primary">Convert</button>
+    <div id="energyResult" class="mt-3"></div>
+  </div>
+  <div id="footer" class="mt-4"></div>
+  <script src="main.js"></script>
+  <script>
+    const convertEnergyBtn = document.getElementById("convertEnergyBtn");
+    const energyInput = document.getElementById("energyInput");
+    const energyUnitSelect = document.getElementById("energyUnitSelect");
+    const energyResult = document.getElementById("energyResult");
+
+    convertEnergyBtn.addEventListener("click", () => {
+      const value = parseFloat(energyInput.value);
+      const unit = energyUnitSelect.value;
+      let result = '';
+      if (unit === "joules") {
+        result = `${value} Joules = ${(value / 4.184).toFixed(2)} Calories = ${(value / 4184).toFixed(2)} Kilocalories = ${(value / 3600).toFixed(2)} Watts`;
+      } else if (unit === "calories") {
+        result = `${value} Calories = ${(value * 4.184).toFixed(2)} Joules = ${(value / 1000).toFixed(2)} Kilocalories = ${(value / 4184).toFixed(2)} Watts`;
+      } else if (unit === "kilocalories") {
+        result = `${value} Kilocalories = ${(value * 4184).toFixed(2)} Joules = ${(value * 1000).toFixed(2)} Calories = ${(value * 4184).toFixed(2)} Watts`;
+      } else {
+        result = `${value} Watts = ${(value * 3600).toFixed(2)} Joules = ${(value * 860).toFixed(2)} Calories = ${(value * 0.001).toFixed(2)} Kilocalories`;
+      }
+      energyResult.innerHTML = result;
+    });
+  </script>
+</body>
+</html>

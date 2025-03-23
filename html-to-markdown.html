@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HTML to Markdown Converter</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+  <div id="header"></div>
+  <div class="container mt-4">
+    <h2 class="mb-3">HTML to Markdown Converter</h2>
+    <textarea id="htmlInput" class="form-control mb-3" rows="6" placeholder="Enter HTML code here"></textarea>
+    <button id="convertToMarkdownBtn" class="btn btn-primary mb-3">Convert to Markdown</button>
+    <pre id="markdownResult" class="mt-3"></pre>
+  </div>
+  <div id="footer" class="mt-4"></div>
+  <script src="main.js"></script>
+  <script>
+    const convertToMarkdownBtn = document.getElementById("convertToMarkdownBtn");
+    const htmlInput = document.getElementById("htmlInput");
+    const markdownResult = document.getElementById("markdownResult");
+
+    convertToMarkdownBtn.addEventListener("click", () => {
+      const htmlText = htmlInput.value;
+      // Here you could use a library to convert HTML to Markdown
+      // For simplicity, let's assume the conversion function is available
+      const markdown = htmlToMarkdown(htmlText);
+      markdownResult.textContent = markdown;
+    });
+
+    function htmlToMarkdown(html) {
+      // Basic function to simulate HTML to Markdown conversion
+      return html.replace(/<h1>/g, "# ").replace(/<\/h1>/g, "\n").replace(/<p>/g, "").replace(/<\/p>/g, "\n");
+    }
+  </script>
+</body>
+</html>

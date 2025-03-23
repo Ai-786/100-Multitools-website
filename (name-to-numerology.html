@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Name to Numerology Calculator</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+  <div id="header"></div>
+  <div class="container mt-4">
+    <h2 class="mb-3">Name to Numerology Calculator</h2>
+    <form id="numerologyForm">
+      <div class="mb-3">
+        <label for="nameInput" class="form-label">Enter Your Name</label>
+        <input type="text" id="nameInput" class="form-control" required />
+      </div>
+      <button type="submit" class="btn btn-primary">Calculate Numerology</button>
+    </form>
+    <div id="numerologyResult" class="mt-4"></div>
+  </div>
+  <div id="footer" class="mt-4"></div>
+  <script src="main.js"></script>
+  <script>
+    const numerologyForm = document.getElementById("numerologyForm");
+    const nameInput = document.getElementById("nameInput");
+    const numerologyResultDiv = document.getElementById("numerologyResult");
+
+    const alphabetToNumber = {
+      A: 1, B: 2, C: 3, D: 4, E: 5, F: 6, G: 7, H: 8, I: 9, J: 1, K: 2, L: 3,
+      M: 4, N: 5, O: 6, P: 7, Q: 8, R: 9, S: 1, T: 2, U: 3, V: 4, W: 5, X: 6,
+      Y: 7, Z: 8
+    };
+
+    numerologyForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const name = nameInput.value.toUpperCase();
+      const sum = [...name].reduce((total, letter) => total + (alphabetToNumber[letter] || 0), 0);
+      const numerology = sum % 9 || 9;
+
+      numerologyResultDiv.innerHTML = `
+        <h4>Your Numerology Number is: ${numerology}</h4>
+      `;
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Daily Planner Creator</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+  <div id="header"></div>
+  <div class="container mt-4">
+    <h2 class="mb-3">Daily Planner Creator</h2>
+    <form id="plannerForm">
+      <div class="mb-3">
+        <label for="task" class="form-label">Task</label>
+        <input type="text" id="task" class="form-control" required />
+      </div>
+      <div class="mb-3">
+        <label for="time" class="form-label">Time</label>
+        <input type="time" id="time" class="form-control" required />
+      </div>
+      <button type="submit" class="btn btn-primary">Add Task</button>
+    </form>
+    <div id="plannerList" class="mt-4"></div>
+  </div>
+  <div id="footer" class="mt-4"></div>
+  <script src="main.js"></script>
+  <script>
+    const plannerForm = document.getElementById("plannerForm");
+    const taskInput = document.getElementById("task");
+    const timeInput = document.getElementById("time");
+    const plannerListDiv = document.getElementById("plannerList");
+
+    plannerForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const task = taskInput.value;
+      const time = timeInput.value;
+
+      const taskItem = document.createElement("div");
+      taskItem.classList.add("mb-2");
+      taskItem.innerHTML = `<p><strong>${time}</strong>: ${task}</p>`;
+
+      plannerListDiv.appendChild(taskItem);
+
+      taskInput.value = "";
+      timeInput.value = "";
+    });
+  </script>
+</body>
+</html>

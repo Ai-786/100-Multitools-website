@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Body Fat Calculator</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+  <div id="header"></div>
+  <div class="container mt-4">
+    <h2 class="mb-3">Body Fat Calculator</h2>
+    <input type="number" id="weight" class="form-control mb-3" placeholder="Enter weight (kg)" />
+    <input type="number" id="waist" class="form-control mb-3" placeholder="Enter waist circumference (cm)" />
+    <input type="number" id="neck" class="form-control mb-3" placeholder="Enter neck circumference (cm)" />
+    <select id="gender" class="form-control mb-3">
+      <option value="male">Male</option>
+      <option value="female">Female</option>
+    </select>
+    <button id="calculateFatBtn" class="btn btn-primary">Calculate Body Fat</button>
+    <div id="fatResult" class="mt-3"></div>
+  </div>
+  <div id="footer" class="mt-4"></div>
+  <script src="main.js"></script>
+  <script>
+    const calculateFatBtn = document.getElementById("calculateFatBtn");
+    const weightInput = document.getElementById("weight");
+    const waistInput = document.getElementById("waist");
+    const neckInput = document.getElementById("neck");
+    const genderSelect = document.getElementById("gender");
+    const fatResult = document.getElementById("fatResult");
+
+    calculateFatBtn.addEventListener("click", () => {
+      const weight = parseFloat(weightInput.value);
+      const waist = parseFloat(waistInput.value);
+      const neck = parseFloat(neckInput.value);
+      const gender = genderSelect.value;
+
+      if (!isNaN(weight) && !isNaN(waist) && !isNaN(neck)) {
+        let bodyFatPercentage;
+        if (gender === "male") {
+          bodyFatPercentage = 86.010 * Math.log10(waist - neck) - 70.041 * Math.log10(weight) + 36.76;
+        } else {
+          bodyFatPercentage = 163.205 * Math.log10(waist + neck) - 97.684 * Math.log10(weight) - 78.387;
+        }
+        fatResult.innerHTML = `Body Fat Percentage: ${bodyFatPercentage.toFixed(2)}%`;
+      } else {
+        fatResult.innerHTML = 'Please enter valid values';
+      }
+    });
+  </script>
+</body>
+</html>

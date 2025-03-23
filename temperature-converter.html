@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Temperature Converter</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+  <div id="header"></div>
+  <div class="container mt-4">
+    <h2 class="mb-3">Temperature Converter</h2>
+    <input type="number" id="tempInput" class="form-control mb-3" placeholder="Enter temperature" />
+    <select id="tempUnit" class="form-control mb-3">
+      <option value="C">Celsius</option>
+      <option value="F">Fahrenheit</option>
+      <option value="K">Kelvin</option>
+    </select>
+    <button id="convertTempBtn" class="btn btn-primary mb-3">Convert</button>
+    <div id="tempResult" class="mt-3"></div>
+  </div>
+  <div id="footer" class="mt-4"></div>
+  <script src="main.js"></script>
+  <script>
+    const convertTempBtn = document.getElementById("convertTempBtn");
+    const tempInput = document.getElementById("tempInput");
+    const tempUnit = document.getElementById("tempUnit");
+    const tempResult = document.getElementById("tempResult");
+
+    convertTempBtn.addEventListener("click", () => {
+      const tempValue = parseFloat(tempInput.value);
+      const unit = tempUnit.value;
+
+      if (!isNaN(tempValue)) {
+        let result;
+        if (unit === "C") {
+          result = `Fahrenheit: ${(tempValue * 9/5 + 32).toFixed(2)}°F, Kelvin: ${(tempValue + 273.15).toFixed(2)}K`;
+        } else if (unit === "F") {
+          result = `Celsius: ${(tempValue - 32) * 5/9}°C, Kelvin: ${((tempValue - 32) * 5/9 + 273.15).toFixed(2)}K`;
+        } else {
+          result = `Celsius: ${(tempValue - 273.15).toFixed(2)}°C, Fahrenheit: ${((tempValue - 273.15) * 9/5 + 32).toFixed(2)}°F`;
+        }
+        tempResult.textContent = result;
+      } else {
+        tempResult.textContent = "Please enter a valid temperature.";
+      }
+    });
+  </script>
+</body>
+</html>

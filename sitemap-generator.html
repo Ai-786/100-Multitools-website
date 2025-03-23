@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sitemap Generator</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+  <div id="header"></div>
+  <div class="container mt-4">
+    <h2 class="mb-3">Sitemap Generator</h2>
+    <textarea id="urls" class="form-control mb-3" rows="6" placeholder="Enter URLs, one per line"></textarea>
+    <button id="generateSitemapBtn" class="btn btn-primary">Generate Sitemap</button>
+    <textarea id="sitemapOutput" class="form-control mt-3" rows="6" readonly></textarea>
+  </div>
+  <div id="footer" class="mt-4"></div>
+  <script src="main.js"></script>
+  <script>
+    const generateSitemapBtn = document.getElementById("generateSitemapBtn");
+    const sitemapOutput = document.getElementById("sitemapOutput");
+    const urlsInput = document.getElementById("urls");
+
+    generateSitemapBtn.addEventListener("click", () => {
+      const urls = urlsInput.value.split("\n").map(url => url.trim()).filter(url => url);
+      let sitemap = '<?xml version="1.0" encoding="UTF-8"?>\n';
+      sitemap += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n';
+      urls.forEach(url => {
+        sitemap += `  <url>\n    <loc>${url}</loc>\n  </url>\n`;
+      });
+      sitemap += '</urlset>';
+      sitemapOutput.value = sitemap;
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JSON to CSV Converter</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+  <div id="header"></div>
+  <div class="container mt-4">
+    <h2 class="mb-3">JSON to CSV Converter</h2>
+    <textarea id="jsonInput" class="form-control mb-3" rows="6" placeholder="Enter JSON data"></textarea>
+    <button id="convertBtn" class="btn btn-primary mb-3">Convert to CSV</button>
+    <textarea id="csvResult" class="form-control" rows="6" placeholder="Converted CSV will appear here" readonly></textarea>
+  </div>
+  <div id="footer" class="mt-4"></div>
+  <script src="main.js"></script>
+  <script>
+    const convertBtn = document.getElementById("convertBtn");
+    const jsonInput = document.getElementById("jsonInput");
+    const csvResult = document.getElementById("csvResult");
+
+    convertBtn.addEventListener("click", () => {
+      try {
+        const jsonData = JSON.parse(jsonInput.value);
+        const csv = jsonToCsv(jsonData);
+        csvResult.value = csv;
+      } catch (error) {
+        csvResult.value = "Invalid JSON data.";
+      }
+    });
+
+    function jsonToCsv(json) {
+      const rows = [];
+      const headers = Object.keys(json[0]);
+      rows.push(headers.join(","));
+      
+      json.forEach(item => {
+        const row = headers.map(header => item[header]);
+        rows.push(row.join(","));
+      });
+
+      return rows.join("\n");
+    }
+  </script>
+</body>
+</html>

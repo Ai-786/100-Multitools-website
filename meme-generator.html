@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Meme Generator</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+  <div id="header"></div>
+  <div class="container mt-4">
+    <h2 class="mb-3">Meme Generator</h2>
+    <input type="text" id="topText" class="form-control mb-3" placeholder="Enter top text" />
+    <input type="text" id="bottomText" class="form-control mb-3" placeholder="Enter bottom text" />
+    <input type="file" id="imageUpload" class="form-control mb-3" />
+    <canvas id="memeCanvas" width="500" height="500" class="border"></canvas>
+    <button id="generateMemeBtn" class="btn btn-primary mb-3 mt-3">Generate Meme</button>
+  </div>
+  <div id="footer" class="mt-4"></div>
+  <script src="main.js"></script>
+  <script>
+    const generateMemeBtn = document.getElementById("generateMemeBtn");
+    const imageUpload = document.getElementById("imageUpload");
+    const topText = document.getElementById("topText");
+    const bottomText = document.getElementById("bottomText");
+    const memeCanvas = document.getElementById("memeCanvas");
+    const ctx = memeCanvas.getContext("2d");
+
+    generateMemeBtn.addEventListener("click", () => {
+      const file = imageUpload.files[0];
+      const reader = new FileReader();
+      
+      reader.onload = function(e) {
+        const img = new Image();
+        img.onload = function() {
+          ctx.clearRect(0, 0, memeCanvas.width, memeCanvas.height);
+          ctx.drawImage(img, 0, 0, memeCanvas.width, memeCanvas.height);
+          ctx.font = "30px Arial";
+          ctx.fillStyle = "white";
+          ctx.textAlign = "center";
+          ctx.fillText(topText.value, memeCanvas.width / 2, 30);
+          ctx.fillText(bottomText.value, memeCanvas.width / 2, memeCanvas.height - 30);
+        };
+        img.src = e.target.result;
+      };
+      
+      if (file) {
+        reader.readAsDataURL(file);
+      }
+    });
+  </script>
+</body>
+</html>

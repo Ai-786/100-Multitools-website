@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Invoice Generator</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+  <div id="header"></div>
+  <div class="container mt-4">
+    <h2 class="mb-3">Invoice Generator</h2>
+    <form id="invoiceForm">
+      <div class="mb-3">
+        <label for="clientName" class="form-label">Client Name</label>
+        <input type="text" id="clientName" class="form-control" required />
+      </div>
+      <div class="mb-3">
+        <label for="services" class="form-label">Services</label>
+        <textarea id="services" class="form-control" rows="4" required></textarea>
+      </div>
+      <div class="mb-3">
+        <label for="amount" class="form-label">Amount ($)</label>
+        <input type="number" id="amount" class="form-control" required />
+      </div>
+      <button type="submit" class="btn btn-primary">Generate Invoice</button>
+    </form>
+    <div id="invoicePreview" class="mt-4"></div>
+  </div>
+  <div id="footer" class="mt-4"></div>
+  <script src="main.js"></script>
+  <script>
+    document.getElementById("invoiceForm").addEventListener("submit", (e) => {
+      e.preventDefault();
+      
+      const clientName = document.getElementById("clientName").value;
+      const services = document.getElementById("services").value;
+      const amount = document.getElementById("amount").value;
+
+      const invoicePreview = document.getElementById("invoicePreview");
+      invoicePreview.innerHTML = `
+        <h3>Invoice Preview</h3>
+        <p><strong>Client Name:</strong> ${clientName}</p>
+        <p><strong>Services:</strong> ${services}</p>
+        <p><strong>Amount:</strong> $${amount}</p>
+        <button class="btn btn-success">Download Invoice</button>
+      `;
+    });
+  </script>
+</body>
+</html>
